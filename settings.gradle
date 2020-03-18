@@ -1,0 +1,2 @@
+rootProject.name='letscook-android'
+include ':app'

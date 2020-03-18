@@ -33,6 +33,10 @@
         <item name="android:paddingTop">@dimen/margin_normal</item>
     </style>
 
+    <style name="ContentLoadingProgress">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
     <!-- TextView Style -->
     <style name="TextView" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>

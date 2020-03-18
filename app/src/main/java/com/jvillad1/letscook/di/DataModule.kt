@@ -1,5 +1,7 @@
 package com.jvillad1.letscook.di
 
+import com.jvillad1.letscook.data.RecipesRepositoryImpl
+import com.jvillad1.letscook.domain.repository.RecipesRepository
 import dagger.Binds
 import dagger.Module
 
@@ -15,9 +17,8 @@ import dagger.Module
 )
 abstract class DataModule {
 
-    // TODO: Bind repository
-//    @Binds
-//    internal abstract fun providesRecipesRepository(
-//        recipesRepositoryImpl: RecipesRepositoryImpl
-//    ): RecipesRepository
+    @Binds
+    internal abstract fun providesRecipesRepository(
+        recipesRepositoryImpl: RecipesRepositoryImpl
+    ): RecipesRepository
 }

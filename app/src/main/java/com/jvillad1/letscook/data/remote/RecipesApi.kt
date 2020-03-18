@@ -1,7 +1,7 @@
 package com.jvillad1.letscook.data.remote
 
 import com.jvillad1.letscook.data.remote.model.RecipeDetailsResponse
-import com.jvillad1.letscook.data.remote.model.RecipesResponse
+import com.jvillad1.letscook.data.remote.model.RecipeResponse
 import retrofit2.http.*
 
 /**
@@ -12,11 +12,7 @@ import retrofit2.http.*
 interface RecipesApi {
 
     @GET("recipes")
-    suspend fun getRecipes(
-        @Field("email") email: String,
-        @Field("password") password: String,
-        @Field("version") version: String
-    ): List<RecipesResponse>
+    suspend fun getRecipes(): List<RecipeResponse>
 
     @GET("recipes/{id}")
     suspend fun getRecipeDetails(

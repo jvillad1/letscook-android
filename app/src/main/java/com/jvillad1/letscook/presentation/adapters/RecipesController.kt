@@ -1,0 +1,29 @@
+package com.jvillad1.letscook.presentation.adapters
+
+import com.airbnb.epoxy.TypedEpoxyController
+import com.jvillad1.letscook.presentation.model.RecipeUI
+import com.jvillad1.letscook.presentation.model.recipe
+
+/**
+ * Epoxy Controller Class for the Recipes list.
+ *
+ * @author juan.villada
+ */
+class RecipesController(
+    private val listener: RecipeClickedListener
+) : TypedEpoxyController<List<RecipeUI>>() {
+
+    override fun buildModels(services: List<RecipeUI>) {
+        services.forEach {
+            recipe {
+                id(it.id)
+                recipeUI(it)
+                serviceClickedListener(listener)
+            }
+        }
+    }
+
+    interface RecipeClickedListener {
+        fun onRecipeClicked(recipeUI: RecipeUI)
+    }
+}

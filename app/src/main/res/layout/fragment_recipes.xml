@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/servicesLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".presentation.RecipesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/servicesEpoxyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/margin_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_recipe" />
+
+    <!-- Loading -->
+    <ViewStub
+        android:id="@+id/servicesLoadingViewStub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:inflatedId="@+id/layout_loading"
+        android:layout="@layout/layout_loading" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

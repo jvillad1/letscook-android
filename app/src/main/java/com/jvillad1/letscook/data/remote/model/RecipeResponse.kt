@@ -8,7 +8,7 @@ import com.squareup.moshi.Json
  *
  * @author juan.villada
  */
-data class RecipesResponse(
+data class RecipeResponse(
     @field:Json(name = "id")
     val id: Int,
     @field:Json(name = "title")

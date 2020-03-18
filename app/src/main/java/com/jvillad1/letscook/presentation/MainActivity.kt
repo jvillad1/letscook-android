@@ -3,9 +3,14 @@ package com.jvillad1.letscook.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.jvillad1.letscook.R
+import com.jvillad1.letscook.commons.observe
+import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
+import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 /**
  * Activity for the Main Entry-Point.
@@ -14,11 +19,20 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
+    // ViewModel
+    @Inject
+    lateinit var recipesViewModelFactory: RecipesViewModelFactory
+    private lateinit var recipesViewModel: RecipesViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        // TODO: Observe ViewModel
+        // ViewModel
+        recipesViewModel = ViewModelProvider(this, recipesViewModelFactory)
+            .get(RecipesViewModel::class.java)
+
+        // TODO: Observe navigation changes
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

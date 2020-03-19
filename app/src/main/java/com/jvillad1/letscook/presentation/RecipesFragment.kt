@@ -188,6 +188,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
 
     override fun onRecipeClicked(recipeUI: RecipeUI) {
         Timber.d("onRecipeClicked")
+        hideKeyboard()
         recipesViewModel.navigateTo(RecipeDetailsFragment(recipeUI))
     }
 }

@@ -14,6 +14,6 @@ interface RecipesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipes(recipes: List<RecipeEntity>)
 
-    @Query("SELECT * FROM recipe WHERE recipe.title LIKE :search")
-    suspend fun searchRecipes(search: String?): List<RecipeEntity>?
+    @Query("SELECT * FROM recipe WHERE recipe.title LIKE :query")
+    suspend fun searchRecipes(query: String): List<RecipeEntity>
 }

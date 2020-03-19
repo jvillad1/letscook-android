@@ -15,7 +15,7 @@
 
     <!-- Recipes Error Messages -->
     <string name="recipes_error_message">We\'re having troubles loading the recipes</string>
-    <string name="empty_recipes_error_message">No recipes available at the moment</string>
+    <string name="recipes_search_error_message">No recipes found with the given search</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

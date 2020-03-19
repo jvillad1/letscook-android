@@ -34,4 +34,15 @@ object RecipesDataMapper {
             }
         }
     }
+
+    object RecipesListCacheToUI : BaseMapper<List<RecipeEntity>, List<RecipeUI>> {
+        override fun map(type: List<RecipeEntity>): List<RecipeUI> {
+            return type.map {
+                RecipeUI(
+                    id = it.id,
+                    title = it.title
+                )
+            }
+        }
+    }
 }

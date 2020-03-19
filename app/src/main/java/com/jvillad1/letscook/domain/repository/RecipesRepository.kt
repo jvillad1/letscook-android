@@ -11,4 +11,6 @@ import com.jvillad1.letscook.presentation.model.RecipeUI
 interface RecipesRepository {
 
     suspend fun getRecipes(): Output<List<RecipeUI>>
+
+    suspend fun searchRecipes(query: String): Output<List<RecipeUI>>
 }

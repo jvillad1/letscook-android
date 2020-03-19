@@ -30,4 +30,10 @@ class RecipesRepositoryImpl @Inject constructor(
 
         return recipesRemoteDataSource.getRecipes()
     }
+
+    override suspend fun searchRecipes(query: String): Output<List<RecipeUI>> {
+        Timber.d("searchRecipes")
+
+        return recipesCacheDataSource.searchRecipes(query)
+    }
 }

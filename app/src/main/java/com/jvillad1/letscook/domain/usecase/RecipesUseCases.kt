@@ -8,5 +8,6 @@ import javax.inject.Inject
  * @author juan.villada
  */
 data class RecipesUseCases @Inject constructor(
-    val getRecipes: GetRecipes
+    val getRecipes: GetRecipes,
+    val searchRecipes: SearchRecipes
 )

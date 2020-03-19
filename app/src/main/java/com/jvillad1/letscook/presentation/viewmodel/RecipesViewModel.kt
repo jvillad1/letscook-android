@@ -8,6 +8,7 @@ import com.jvillad1.letscook.R
 import com.jvillad1.letscook.commons.base.Output
 import com.jvillad1.letscook.commons.base.UIState
 import com.jvillad1.letscook.domain.usecase.RecipesUseCases
+import com.jvillad1.letscook.presentation.model.RecipeDetailsUI
 import com.jvillad1.letscook.presentation.model.RecipeUI
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -22,30 +23,62 @@ class RecipesViewModel @Inject constructor(
     private val recipesUseCases: RecipesUseCases
 ) : ViewModel() {
 
+    // Current view LiveData
+    private val currentViewMutableLiveData = MutableLiveData<RecipesView>()
+    val currentViewLiveData: LiveData<RecipesView>
+        get() = currentViewMutableLiveData
+
     // UIState LiveData
     private val currentUIStateMutableLiveData = MutableLiveData<UIState<RecipesDataType>>()
     val currentUIStateLiveData: LiveData<UIState<RecipesDataType>>
         get() = currentUIStateMutableLiveData
 
+    private var recipes: List<RecipeUI> = listOf()
+    private var filteredRecipes: List<RecipeUI> = listOf()
+
     init {
         getRecipes()
     }
 
-    fun getRecipes() {
-        viewModelScope.launch {
-            Timber.d("getRecipes")
-            currentUIStateMutableLiveData.value = UIState.Loading()
+    fun getRecipes() = viewModelScope.launch {
+        Timber.d("getRecipes")
+        currentUIStateMutableLiveData.value = UIState.Loading()
 
-            val output = recipesUseCases.getRecipes()
-            if (output is Output.Success) {
-                currentUIStateMutableLiveData.value = UIState.Data(RecipesDataType.RecipesData(output.data))
-            } else {
-                currentUIStateMutableLiveData.value = UIState.Error(R.string.recipes_error_message)
-            }
+        val output = recipesUseCases.getRecipes()
+        if (output is Output.Success) {
+            recipes = output.data
+            currentUIStateMutableLiveData.value = UIState.Data(RecipesDataType.RecipesData(recipes))
+        } else {
+            currentUIStateMutableLiveData.value = UIState.Error(R.string.recipes_error_message)
         }
+    }
+
+    fun searchRecipes(query: String) = viewModelScope.launch {
+        Timber.d("searchRecipes")
+        currentUIStateMutableLiveData.value = UIState.Loading()
+
+        fun getQueryString() = "%$query%"
+
+        val output = recipesUseCases.searchRecipes(getQueryString())
+        if (output is Output.Success) {
+            filteredRecipes = output.data
+            currentUIStateMutableLiveData.value = UIState.Data(RecipesDataType.RecipesData(filteredRecipes))
+        } else {
+            currentUIStateMutableLiveData.value = UIState.Error(R.string.recipes_search_error_message)
+        }
+    }
+
+    fun clearSearch() {
+        currentUIStateMutableLiveData.value = UIState.Data(RecipesDataType.RecipesData(recipes))
+    }
+
+    sealed class RecipesView {
+        object RecipesFragment : RecipesView()
+        object RecipeDetailsFragment : RecipesView()
     }
 
     sealed class RecipesDataType {
         data class RecipesData(val recipes: List<RecipeUI>) : RecipesDataType()
+        data class RecipeDetailsData(val recipeDetails: RecipeDetailsUI) : RecipesDataType()
     }
 }

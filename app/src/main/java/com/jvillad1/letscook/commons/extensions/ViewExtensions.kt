@@ -1,9 +1,14 @@
 package com.jvillad1.letscook.commons.extensions
 
+import android.app.Activity
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.Fragment
 
 /**
  * Extension functions for Views.
@@ -59,4 +64,20 @@ internal fun View?.findSuitableParent(): ViewGroup? {
 
     // If we reach here then we didn't find a CoL or a suitable content view so we'll fallback
     return fallback
+}
+
+fun Fragment.hideKeyboard() {
+    val activity = this.activity
+    if (activity is AppCompatActivity) {
+        activity.hideKeyboard()
+    }
+}
+
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
+}
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }

@@ -1,15 +1,16 @@
 package com.jvillad1.letscook.presentation
 
-import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.jvillad1.letscook.R
-import com.jvillad1.letscook.commons.extensions.hideKeyboard
 import com.jvillad1.letscook.commons.extensions.observe
-import com.jvillad1.letscook.data.remote.model.RecipeDetailsResponse
+import com.jvillad1.letscook.presentation.model.RecipeUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView.RecipeDetailsFragment
@@ -31,8 +32,23 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     lateinit var recipesViewModelFactory: RecipesViewModelFactory
     private lateinit var recipesViewModel: RecipesViewModel
 
-    @Inject
-    lateinit var connectivityManager: ConnectivityManager
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
+    // Navigation
+    private val recipesNavController: NavController by lazy {
+        findNavController(R.id.recipesNavHostFragment)
+    }
+
+    private val onDestinationChangedListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
+        when (destination.id) {
+            R.id.recipeDetailsFragment -> {
+                toolbar.title = (arguments!!.get("recipe") as RecipeUI).title
+            }
+            else -> {
+                toolbar.title = getText(R.string.recipes)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -49,43 +65,32 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onPostCreate(savedInstanceState)
 
         setSupportActionBar(toolbar)
-        toolbar.title = getText(R.string.recipes)
 
-        replaceFragment(RecipesFragment.newInstance())
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.recipesFragment))
+        setupActionBarWithNavController(recipesNavController, appBarConfiguration)
+        recipesNavController.addOnDestinationChangedListener(onDestinationChangedListener)
+    }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String): Boolean {
-                Timber.d("onQueryTextChange")
-                if (newText.isEmpty()) {
-                    recipesViewModel.clearSearch()
-                }
-
-                return true
-            }
-
-            override fun onQueryTextSubmit(query: String): Boolean {
-                Timber.d("onQueryTextSubmit")
-                hideKeyboard()
-                recipesViewModel.searchRecipes(query)
-
-                return true
-            }
-        })
+    override fun onSupportNavigateUp(): Boolean {
+        return recipesNavController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     private fun onRecipesViewChange(destination: RecipesView) {
+        Timber.d("onRecipesViewChange")
         when (destination) {
-            // TODO: Implement this with navigation component
-            is RecipesView.RecipesFragment -> Timber.d("Show Recipes")
-            is RecipeDetailsFragment -> Timber.d("Show Recipes")
+            is RecipesView.RecipesFragment -> showRecipesFragment()
+            is RecipeDetailsFragment -> showRecipeDetailsFragment(destination.recipeUI)
         }
     }
 
-    // TODO: Implement this with navigation component
-    private fun replaceFragment(fragment: Fragment) {
-        with(supportFragmentManager.beginTransaction()) {
-            replace(R.id.fragmentContainer, fragment)
-            commit()
-        }
+    private fun showRecipesFragment() {
+        Timber.d("showRecipesFragment")
+        recipesNavController.navigate(R.id.recipesFragment)
+    }
+
+    private fun showRecipeDetailsFragment(recipeUI: RecipeUI) {
+        Timber.d("showRecipeDetailsFragment")
+        val action = RecipesFragmentDirections.actionRecipesFragmentToRecipeDetailsFragment(recipeUI)
+        recipesNavController.navigate(action)
     }
 }

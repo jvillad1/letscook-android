@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipesNavigation"
+    app:startDestination="@id/recipesFragment">
+
+    <fragment
+        android:id="@+id/recipesFragment"
+        android:name="com.jvillad1.letscook.presentation.RecipesFragment"
+        android:label="fragment_recipes"
+        tools:layout="@layout/fragment_recipes" >
+
+        <action
+            android:id="@+id/actionRecipesFragmentToRecipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_from_left"
+            app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.jvillad1.letscook.presentation.RecipeDetailsFragment"
+        android:label="fragment_recipe_details"
+        tools:layout="@layout/fragment_recipe_details" >
+
+        <action
+            android:id="@+id/actionRecipeDetailsFragmentToRecipesFragment"
+            app:destination="@id/recipesFragment"
+            app:enterAnim="@anim/slide_in_from_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_from_right"
+            app:popExitAnim="@anim/fade_out" />
+
+        <argument
+            android:name="recipe"
+            app:argType="com.jvillad1.letscook.presentation.model.RecipeUI" />
+
+    </fragment>
+
+</navigation>

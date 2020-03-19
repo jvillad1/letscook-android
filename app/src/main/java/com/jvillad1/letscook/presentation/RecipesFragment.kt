@@ -5,24 +5,25 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewStub
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jvillad1.letscook.commons.widget.ErrorBanner
 import com.jvillad1.letscook.R
 import com.jvillad1.letscook.commons.base.UIState
 import com.jvillad1.letscook.commons.extensions.gone
+import com.jvillad1.letscook.commons.extensions.hideKeyboard
 import com.jvillad1.letscook.commons.extensions.observe
 import com.jvillad1.letscook.commons.extensions.visible
+import com.jvillad1.letscook.commons.widget.ErrorBanner
 import com.jvillad1.letscook.commons.widget.ErrorBannerView
 import com.jvillad1.letscook.presentation.adapters.RecipesController
-import com.jvillad1.letscook.presentation.model.RecipeDetailsUI
 import com.jvillad1.letscook.presentation.model.RecipeUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipeDetailsData
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipesData
+import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView.RecipeDetailsFragment
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_recipes.*
@@ -71,6 +72,25 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
         super.onViewCreated(view, savedInstanceState)
 
         viewStub = view.findViewById(R.id.recipesLoadingViewStub)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                Timber.d("onQueryTextChange")
+                if (newText.isEmpty()) {
+                    recipesViewModel.clearSearch()
+                }
+
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Timber.d("onQueryTextSubmit")
+                hideKeyboard()
+                recipesViewModel.searchRecipes(query)
+
+                return true
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -143,23 +163,18 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
     }
 
     override fun onErrorBannerDismiss() {
+        Timber.d("onErrorBannerDismiss")
         errorBanner.dismiss()
     }
 
     override fun onErrorBannerRetry() {
+        Timber.d("onErrorBannerRetry")
         errorBanner.dismiss()
         recipesViewModel.getRecipes()
     }
 
     override fun onRecipeClicked(recipeUI: RecipeUI) {
-        Timber.d("onServiceClicked")
-        // TODO: Navigate to RecipeDetailsFragment
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(): RecipesFragment {
-            return RecipesFragment()
-        }
+        Timber.d("onRecipeClicked")
+        recipesViewModel.navigateTo(RecipeDetailsFragment(recipeUI))
     }
 }

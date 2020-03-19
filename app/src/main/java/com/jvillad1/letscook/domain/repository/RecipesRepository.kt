@@ -1,6 +1,7 @@
 package com.jvillad1.letscook.domain.repository
 
 import com.jvillad1.letscook.commons.base.Output
+import com.jvillad1.letscook.presentation.model.RecipeDetailsUI
 import com.jvillad1.letscook.presentation.model.RecipeUI
 
 /**
@@ -13,4 +14,6 @@ interface RecipesRepository {
     suspend fun getRecipes(): Output<List<RecipeUI>>
 
     suspend fun searchRecipes(query: String): Output<List<RecipeUI>>
+
+    suspend fun getRecipeDetails(id: Int): Output<RecipeDetailsUI>
 }

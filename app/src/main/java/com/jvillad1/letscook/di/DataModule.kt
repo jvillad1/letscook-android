@@ -12,7 +12,8 @@ import dagger.Module
  */
 @Module(
     includes = [
-        NetworkModule::class
+        NetworkModule::class,
+        CacheModule::class
     ]
 )
 abstract class DataModule {

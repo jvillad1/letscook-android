@@ -1,6 +1,5 @@
 package com.jvillad1.letscook.data.remote
 
-import com.jvillad1.letscook.commons.base.BaseRemoteDataSource
 import com.jvillad1.letscook.commons.base.Output
 import com.jvillad1.letscook.data.RecipesDataMapper
 import com.jvillad1.letscook.presentation.model.RecipeUI
@@ -15,7 +14,7 @@ import javax.inject.Inject
  */
 class RecipesRemoteDataSource @Inject constructor(
     private val recipesApi: RecipesApi
-) : BaseRemoteDataSource() {
+) {
 
     suspend fun getRecipes(): Output<List<RecipeUI>> =
         try {

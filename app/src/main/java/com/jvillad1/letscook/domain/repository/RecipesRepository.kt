@@ -3,7 +3,6 @@ package com.jvillad1.letscook.domain.repository
 import com.jvillad1.letscook.commons.base.Output
 import com.jvillad1.letscook.presentation.model.RecipeUI
 
-
 /**
  * Repository for Recipes handling.
  *

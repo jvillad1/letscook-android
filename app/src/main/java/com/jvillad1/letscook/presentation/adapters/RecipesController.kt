@@ -18,7 +18,7 @@ class RecipesController(
             recipe {
                 id(it.id)
                 recipeUI(it)
-                serviceClickedListener(listener)
+                recipeClickedListener(listener)
             }
         }
     }

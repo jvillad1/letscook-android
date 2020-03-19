@@ -5,4 +5,5 @@
     <color name="colorAccent">#ffffff</color>
 
     <color name="colorLoadingOverlay">#66ffffff</color>
+    <color name="grayLight">#C9C9C9</color>
 </resources>

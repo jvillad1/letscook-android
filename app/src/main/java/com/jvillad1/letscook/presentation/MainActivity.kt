@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val onDestinationChangedListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
         when (destination.id) {
             R.id.recipeDetailsFragment -> {
-                toolbar.title = (arguments!!.get("recipe") as RecipeUI).title
+                toolbar.title = getText(R.string.recipe_details)
             }
             else -> {
                 toolbar.title = getText(R.string.recipes)

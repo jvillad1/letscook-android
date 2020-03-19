@@ -8,17 +8,33 @@
     android:animateLayoutChanges="true"
     tools:context=".presentation.RecipesFragment">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchViewContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginEnd="@dimen/margin_normal"
-        app:iconifiedByDefault="false"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/recipesEpoxyRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:queryHint="@string/search_hint" />
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:background="@drawable/shape_rounded_white"
+            app:iconifiedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="@string/search_hint" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/recipesEpoxyRecyclerView"
@@ -30,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/searchView"
+        app:layout_constraintTop_toTopOf="@id/searchViewContainer"
         tools:listitem="@layout/item_recipe" />
 
     <!-- Loading -->
@@ -38,7 +54,15 @@
         android:id="@+id/recipesLoadingViewStub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:inflatedId="@+id/layout_loading"
+        android:inflatedId="@+id/layoutLoading"
         android:layout="@layout/layout_loading" />
+
+    <!-- No Results -->
+    <ViewStub
+        android:id="@+id/noResultsViewStub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inflatedId="@+id/layoutNoResults"
+        android:layout="@layout/layout_no_results" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

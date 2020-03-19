@@ -49,8 +49,12 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
     }
 
     // Loading
-    private lateinit var viewStub: ViewStub
-    private var inflated: View? = null
+    private lateinit var loadingViewStub: ViewStub
+    private var loadingInflated: View? = null
+
+    // No Results found
+    private lateinit var noResultsViewStub: ViewStub
+    private var noResultsInflated: View? = null
 
     // ErrorBanner
     private lateinit var errorBanner: ErrorBanner
@@ -71,11 +75,14 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewStub = view.findViewById(R.id.recipesLoadingViewStub)
+        loadingViewStub = view.findViewById(R.id.recipesLoadingViewStub)
+        noResultsViewStub = view.findViewById(R.id.noResultsViewStub)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 Timber.d("onQueryTextChange")
+                noResultsInflated?.gone()
+
                 if (newText.isEmpty()) {
                     recipesViewModel.clearSearch()
                 }
@@ -114,20 +121,21 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
 
     private fun showLoading() {
         Timber.d("showLoading")
-        if (inflated == null) {
-            inflated = viewStub.inflate()
+        if (loadingInflated == null) {
+            loadingInflated = loadingViewStub.inflate()
         }
 
-        inflated?.visible()
+        loadingInflated?.visible()
     }
 
     private fun showData(recipesDataType: RecipesDataType) {
         Timber.d("showData")
 
-        inflated?.gone()
         when (recipesDataType) {
-            is RecipesData -> showRecipesList(recipesDataType.recipes)
-            is RecipeDetailsData -> Timber.d("Show details fragment")
+            is RecipesData -> {
+                loadingInflated?.gone()
+                showRecipesList(recipesDataType.recipes)
+            }
         }
     }
 
@@ -143,10 +151,15 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
     private fun showError(@StringRes messageResId: Int) {
         Timber.d("showErrorBanner")
 
-        inflated?.gone()
+        loadingInflated?.gone()
 
         if (messageResId == R.string.recipes_search_error_message) {
-            // TODO: Show centered text with messageResId
+            if (noResultsInflated == null) {
+                noResultsInflated = noResultsViewStub.inflate()
+            }
+
+            recipesController.setData(listOf())
+            noResultsInflated?.visible()
         } else {
             view?.let {
                 errorBanner = ErrorBanner.make(

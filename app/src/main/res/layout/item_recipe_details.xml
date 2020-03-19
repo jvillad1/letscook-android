@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingBottom="@dimen/margin_small">
+
+    <ImageView
+        android:id="@+id/recipeImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:contentDescription="@string/recipe_image_cont_desc"
+        app:layout_constraintDimensionRatio="3:2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recipeTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:maxLines="2"
+        android:textAppearance="@style/TextView.ExtraBig"
+        app:layout_constraintTop_toBottomOf="@id/recipeImageView"
+        tools:text="Cherry Lime Mojito" />
+
+    <RatingBar
+        android:id="@+id/recipeRatingBar"
+        style="@style/RecipeRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:clickable="false"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:progressDrawable="@drawable/layer_list_rating"
+        android:stepSize="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipeTitleTextView" />
+
+    <TextView
+        android:id="@+id/recipeInstructionsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textAppearance="@style/TextView.Medium"
+        app:layout_constraintTop_toBottomOf="@id/recipeRatingBar"
+        tools:text="Preheat oven to 375. Combine all ingredients in a medium bowl. Spray a muffin tin with cooking oil. Fill the tin to the top with oats. It should make about six  eight oatmeal cakes. Bake uncovered for 20 minutes. For a light crust, broil for an additional 3-5 minutes until lightly browned. Serve on its own or with fresh fruit, yogurt, or milk." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

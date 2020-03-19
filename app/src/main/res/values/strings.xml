@@ -7,20 +7,19 @@
 
     <!-- Error Messages -->
     <string name="general_error_title">Please try again</string>
-    <string name="general_error_message">We\'re having troubles loading the data</string>
+    <string name="general_error_message">We\'re having trouble loading the data</string>
 
     <!-- Recipes View -->
     <string name="recipes">Recipes</string>
     <string name="search_hint">Search</string>
+    <string name="recipe_details">Recipe Details</string>
+    <string name="recipe_image_cont_desc">Recipe Image</string>
 
     <!-- Recipes Error Messages -->
-    <string name="recipes_error_message">We\'re having troubles loading the recipes</string>
-    <string name="recipes_search_error_message">No recipes found with the given search</string>
+    <string name="recipes_error_message">We\'re having trouble loading the recipes</string>
+    <string name="recipes_search_error_message">Sorry, no recipes found with the given search</string>
 
     <!-- Recipe Error Messages -->
-    <string name="recipe_details_error_message">We\'re having troubles loading the recipe details</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_details_error_message">We\'re having trouble loading the recipe details</string>
 
 </resources>

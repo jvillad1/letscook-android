@@ -2,8 +2,10 @@ package com.jvillad1.letscook.commons.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Outline
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -81,3 +83,20 @@ fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
+fun View.setRoundCorners(radiusRes: Int) {
+    this.clipToOutline = true
+    this.outlineProvider = object : ViewOutlineProvider() {
+        override fun getOutline(view: View?, outline: Outline?) {
+            outline?.setRoundRect(
+                0,
+                0,
+                view!!.width,
+                view.height,
+                view.context.resources.getDimension(radiusRes)
+            )
+        }
+    }
+    this.clipToOutline = true
+}
+

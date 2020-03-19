@@ -8,12 +8,12 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import app.ecocleaner.android.commons.widget.ErrorBanner
+import com.jvillad1.letscook.commons.widget.ErrorBanner
 import com.jvillad1.letscook.R
-import com.jvillad1.letscook.commons.UIState
-import com.jvillad1.letscook.commons.gone
-import com.jvillad1.letscook.commons.observe
-import com.jvillad1.letscook.commons.visible
+import com.jvillad1.letscook.commons.base.UIState
+import com.jvillad1.letscook.commons.extensions.gone
+import com.jvillad1.letscook.commons.extensions.observe
+import com.jvillad1.letscook.commons.extensions.visible
 import com.jvillad1.letscook.commons.widget.ErrorBannerView
 import com.jvillad1.letscook.presentation.adapters.RecipesController
 import com.jvillad1.letscook.presentation.model.RecipeUI
@@ -65,18 +65,18 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewStub = view.findViewById(R.id.servicesLoadingViewStub)
+        viewStub = view.findViewById(R.id.recipesLoadingViewStub)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupServicesRecyclerView()
+        setupRecipesRecyclerView()
         observe(recipesViewModel.currentUIStateLiveData, ::onUIStateChange)
     }
 
-    private fun setupServicesRecyclerView() = servicesEpoxyRecyclerView.apply {
-        Timber.d("setupServicesRecyclerView")
+    private fun setupRecipesRecyclerView() = recipesEpoxyRecyclerView.apply {
+        Timber.d("setupRecipesRecyclerView")
         layoutManager = LinearLayoutManager(context)
         setController(recipesController)
     }

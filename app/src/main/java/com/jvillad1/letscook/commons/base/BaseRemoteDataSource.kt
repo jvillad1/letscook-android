@@ -1,4 +1,4 @@
-package com.jvillad1.letscook.commons
+package com.jvillad1.letscook.commons.base
 
 import retrofit2.Response
 
@@ -15,7 +15,9 @@ abstract class BaseRemoteDataSource {
             val response = call()
             if (response.isSuccessful) {
                 val body = response.body()
-                if (body != null) return Output.success(body)
+                if (body != null) return Output.success(
+                    body
+                )
             }
             return formatError(" ${response.code()} ${response.message()}")
         } catch (exception: Exception) {

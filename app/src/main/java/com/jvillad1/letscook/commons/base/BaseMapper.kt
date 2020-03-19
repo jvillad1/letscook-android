@@ -1,4 +1,4 @@
-package com.jvillad1.letscook.commons
+package com.jvillad1.letscook.commons.base
 
 /**
  * Base Mapper interface for data mapping between project layers.

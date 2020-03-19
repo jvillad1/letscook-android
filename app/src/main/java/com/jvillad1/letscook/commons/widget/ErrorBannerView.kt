@@ -10,8 +10,8 @@ import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.snackbar.ContentViewCallback
 import com.jvillad1.letscook.R
-import com.jvillad1.letscook.commons.gone
-import com.jvillad1.letscook.commons.visible
+import com.jvillad1.letscook.commons.extensions.gone
+import com.jvillad1.letscook.commons.extensions.visible
 import kotlinx.android.synthetic.main.view_error_banner.view.*
 
 /**

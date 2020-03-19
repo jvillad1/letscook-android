@@ -1,6 +1,7 @@
-package com.jvillad1.letscook.commons
+package com.jvillad1.letscook.commons.extensions
 
 import androidx.lifecycle.*
+import com.jvillad1.letscook.commons.base.Output
 import kotlinx.coroutines.Dispatchers
 
 /**

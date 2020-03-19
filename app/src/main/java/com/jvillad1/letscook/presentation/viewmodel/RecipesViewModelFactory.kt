@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * ViewModel provider factory to instantiate [RecipesViewModel].
- * Required given ServicesFlowViewModel has a non-empty constructor.
+ * Required given RecipesViewModel has a non-empty constructor.
  *
  * @author juan.villada
  */

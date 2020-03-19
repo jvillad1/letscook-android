@@ -1,4 +1,4 @@
-package com.jvillad1.letscook.commons
+package com.jvillad1.letscook.commons.extensions
 
 import android.view.View
 import android.view.ViewGroup

@@ -1,6 +1,6 @@
 package com.jvillad1.letscook.data
 
-import com.jvillad1.letscook.commons.BaseMapper
+import com.jvillad1.letscook.commons.base.BaseMapper
 import com.jvillad1.letscook.data.remote.model.RecipeResponse
 import com.jvillad1.letscook.presentation.model.RecipeUI
 
@@ -11,7 +11,8 @@ import com.jvillad1.letscook.presentation.model.RecipeUI
  */
 object RecipesDataMapper {
 
-    object RecipesListRemoteToUI : BaseMapper<List<RecipeResponse>, List<RecipeUI>> {
+    object RecipesListRemoteToUI :
+        BaseMapper<List<RecipeResponse>, List<RecipeUI>> {
         override fun map(type: List<RecipeResponse>): List<RecipeUI> {
             return type.map {
                 RecipeUI(

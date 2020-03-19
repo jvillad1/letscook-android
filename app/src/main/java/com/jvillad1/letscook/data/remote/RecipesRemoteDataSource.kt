@@ -1,7 +1,7 @@
 package com.jvillad1.letscook.data.remote
 
-import com.jvillad1.letscook.commons.BaseRemoteDataSource
-import com.jvillad1.letscook.commons.Output
+import com.jvillad1.letscook.commons.base.BaseRemoteDataSource
+import com.jvillad1.letscook.commons.base.Output
 import com.jvillad1.letscook.data.RecipesDataMapper
 import com.jvillad1.letscook.presentation.model.RecipeUI
 import kotlinx.coroutines.Dispatchers
@@ -17,14 +17,14 @@ class RecipesRemoteDataSource @Inject constructor(
     private val recipesApi: RecipesApi
 ) : BaseRemoteDataSource() {
 
-    suspend fun getServices(): Output<List<RecipeUI>> =
+    suspend fun getRecipes(): Output<List<RecipeUI>> =
         try {
-            val servicesResponse = withContext(Dispatchers.IO) {
+            val recipesResponse = withContext(Dispatchers.IO) {
                 recipesApi.getRecipes()
             }
 
-            val services = RecipesDataMapper.RecipesListRemoteToUI.map(servicesResponse)
-            Output.success(services)
+            val recipes = RecipesDataMapper.RecipesListRemoteToUI.map(recipesResponse)
+            Output.success(recipes)
         } catch (e: Throwable) {
             Output.error("Error retrieving the Recipes list from remote: ${e.message}")
         }

@@ -1,4 +1,4 @@
-package com.jvillad1.letscook.commons
+package com.jvillad1.letscook.commons.base
 
 import androidx.annotation.StringRes
 import com.jvillad1.letscook.R

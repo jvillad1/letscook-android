@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jvillad1.letscook.R
-import com.jvillad1.letscook.commons.Output
-import com.jvillad1.letscook.commons.UIState
+import com.jvillad1.letscook.commons.base.Output
+import com.jvillad1.letscook.commons.base.UIState
 import com.jvillad1.letscook.domain.usecase.RecipesUseCases
 import com.jvillad1.letscook.presentation.model.RecipeUI
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * [ViewModel] for the Services flow.
+ * [ViewModel] for the Recipes flow.
  *
  * @author juan.villada
  */

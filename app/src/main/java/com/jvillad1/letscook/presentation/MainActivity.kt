@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jvillad1.letscook.R
-import com.jvillad1.letscook.commons.observe
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory
 import dagger.android.AndroidInjection

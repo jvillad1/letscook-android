@@ -13,8 +13,8 @@ class RecipesController(
     private val listener: RecipeClickedListener
 ) : TypedEpoxyController<List<RecipeUI>>() {
 
-    override fun buildModels(services: List<RecipeUI>) {
-        services.forEach {
+    override fun buildModels(recipes: List<RecipeUI>) {
+        recipes.forEach {
             recipe {
                 id(it.id)
                 recipeUI(it)

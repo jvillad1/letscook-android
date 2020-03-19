@@ -1,4 +1,4 @@
-package app.ecocleaner.android.commons.widget
+package com.jvillad1.letscook.commons.widget
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,7 @@ import androidx.core.content.ContextCompat
 import com.jvillad1.letscook.commons.widget.ErrorBannerView.ErrorBannerListener
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.jvillad1.letscook.R
-import com.jvillad1.letscook.commons.findSuitableParent
-import com.jvillad1.letscook.commons.widget.ErrorBannerView
+import com.jvillad1.letscook.commons.extensions.findSuitableParent
 
 /**
  * Class for the creating an [ErrorBanner] with the [ErrorBannerView].

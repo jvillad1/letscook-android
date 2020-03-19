@@ -1,6 +1,6 @@
 package com.jvillad1.letscook.domain.repository
 
-import com.jvillad1.letscook.commons.Output
+import com.jvillad1.letscook.commons.base.Output
 import com.jvillad1.letscook.presentation.model.RecipeUI
 
 

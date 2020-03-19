@@ -15,22 +15,22 @@ import com.jvillad1.letscook.presentation.adapters.RecipesController
  * @author juan.villada
  */
 @EpoxyModelClass(layout = R.layout.item_recipe)
-abstract class RecipeModel : EpoxyModelWithHolder<RecipeModel.ServicesHolder>() {
+abstract class RecipeModel : EpoxyModelWithHolder<RecipeModel.RecipesHolder>() {
 
     @EpoxyAttribute
     lateinit var recipeUI: RecipeUI
     @EpoxyAttribute
-    lateinit var serviceClickedListener: RecipesController.RecipeClickedListener
+    lateinit var recipeClickedListener: RecipesController.RecipeClickedListener
 
-    override fun bind(holder: ServicesHolder) = with(holder) {
+    override fun bind(holder: RecipesHolder) = with(holder) {
         titleTextView.text = recipeUI.title
 
         container.setOnClickListener {
-            serviceClickedListener.onRecipeClicked(recipeUI)
+            recipeClickedListener.onRecipeClicked(recipeUI)
         }
     }
 
-    inner class ServicesHolder : EpoxyHolder() {
+    inner class RecipesHolder : EpoxyHolder() {
 
         lateinit var titleTextView: TextView
         lateinit var container: View

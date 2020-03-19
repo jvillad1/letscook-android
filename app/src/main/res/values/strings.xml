@@ -13,7 +13,7 @@
     <string name="recipes">Recipes</string>
     <string name="search_hint">Search</string>
 
-    <!-- Services Error Messages -->
+    <!-- Recipes Error Messages -->
     <string name="recipes_error_message">We\'re having troubles loading the recipes</string>
     <string name="empty_recipes_error_message">No recipes available at the moment</string>
 

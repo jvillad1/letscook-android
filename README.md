@@ -4,6 +4,11 @@
 Let's Cook Android is a project that uses a modern approach to Android application development using Kotlin 
 and the latest tech-stack.
 
+Views:
+- Splash with logo
+- Recipes list with search field
+- Recipe details
+
 ## Architecture
 Clean Architecture with MVVM using Repository Pattern
 

@@ -16,9 +16,8 @@ import com.jvillad1.letscook.commons.extensions.observe
 import com.jvillad1.letscook.commons.extensions.visible
 import com.jvillad1.letscook.commons.widget.ErrorBanner
 import com.jvillad1.letscook.commons.widget.ErrorBannerView
-import com.jvillad1.letscook.presentation.adapters.RecipeDetailsController
+import com.jvillad1.letscook.presentation.adapter.RecipeDetailsController
 import com.jvillad1.letscook.presentation.model.RecipeDetailsUI
-import com.jvillad1.letscook.presentation.model.RecipeUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory
 import dagger.android.support.AndroidSupportInjection

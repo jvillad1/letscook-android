@@ -7,7 +7,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.jvillad1.letscook.R
-import com.jvillad1.letscook.presentation.adapters.RecipesController
+import com.jvillad1.letscook.presentation.adapter.RecipesController
 
 /**
  * EpoxyModelClass for the Recipes list.

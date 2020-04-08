@@ -1,4 +1,4 @@
-package com.jvillad1.letscook.presentation.adapters
+package com.jvillad1.letscook.presentation.adapter
 
 import com.airbnb.epoxy.TypedEpoxyController
 import com.jvillad1.letscook.presentation.model.RecipeDetailsUI

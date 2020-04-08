@@ -17,11 +17,10 @@ import com.jvillad1.letscook.commons.extensions.observe
 import com.jvillad1.letscook.commons.extensions.visible
 import com.jvillad1.letscook.commons.widget.ErrorBanner
 import com.jvillad1.letscook.commons.widget.ErrorBannerView
-import com.jvillad1.letscook.presentation.adapters.RecipesController
+import com.jvillad1.letscook.presentation.adapter.RecipesController
 import com.jvillad1.letscook.presentation.model.RecipeUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType
-import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipeDetailsData
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipesData
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView.RecipeDetailsFragment
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory

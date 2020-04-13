@@ -12,17 +12,18 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.jvillad1.letscook.R
 import com.jvillad1.letscook.commons.extensions.setRoundCorners
+import com.jvillad1.letscook.presentation.model.RecipeDetailsModel.RecipeDetailsHolder
 
 @EpoxyModelClass(layout = R.layout.item_recipe_details)
-abstract class RecipeDetailsModel : EpoxyModelWithHolder<PostHolder>() {
+abstract class RecipeDetailsModel : EpoxyModelWithHolder<RecipeDetailsHolder>() {
 
     @EpoxyAttribute
     lateinit var recipeDetailsUI: RecipeDetailsUI
 
-    override fun bind(holder: PostHolder) = with(holder) {
+    override fun bind(holder: RecipeDetailsHolder) = with(holder) {
         Glide.with(recipeImageView)
             .load(recipeDetailsUI.image)
-            .apply(RequestOptions().placeholder(R.color.grayLight))
+            .apply(RequestOptions().placeholder(R.color.colorGrayLight))
             .into(holder.recipeImageView)
         recipeImageView.setRoundCorners(R.dimen.margin_x_small)
 
@@ -30,21 +31,20 @@ abstract class RecipeDetailsModel : EpoxyModelWithHolder<PostHolder>() {
         recipeRatingBar.rating = recipeDetailsUI.rating.toFloat()
         recipeInstructionsTextView.text = recipeDetailsUI.instructions
     }
-}
 
-class PostHolder : EpoxyHolder() {
 
-    lateinit var recipeImageView: ImageView
-    lateinit var recipeTitleTextView: TextView
-    lateinit var recipeRatingBar: RatingBar
-    lateinit var recipeInstructionsTextView: TextView
-    lateinit var container: View
+    inner class RecipeDetailsHolder : EpoxyHolder() {
 
-    override fun bindView(itemView: View) {
-        recipeImageView = itemView.findViewById(R.id.recipeImageView)
-        recipeTitleTextView = itemView.findViewById(R.id.recipeTitleTextView)
-        recipeRatingBar = itemView.findViewById(R.id.recipeRatingBar)
-        recipeInstructionsTextView = itemView.findViewById(R.id.recipeInstructionsTextView)
-        container = itemView
+        lateinit var recipeImageView: ImageView
+        lateinit var recipeTitleTextView: TextView
+        lateinit var recipeRatingBar: RatingBar
+        lateinit var recipeInstructionsTextView: TextView
+
+        override fun bindView(itemView: View) {
+            recipeImageView = itemView.findViewById(R.id.recipeImageView)
+            recipeTitleTextView = itemView.findViewById(R.id.recipeTitleTextView)
+            recipeRatingBar = itemView.findViewById(R.id.recipeRatingBar)
+            recipeInstructionsTextView = itemView.findViewById(R.id.recipeInstructionsTextView)
+        }
     }
 }

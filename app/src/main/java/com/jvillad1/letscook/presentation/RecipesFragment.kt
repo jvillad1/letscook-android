@@ -88,6 +88,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
 
         setupRecipesRecyclerView()
         observe(recipesViewModel.currentUIStateLiveData, ::onUIStateChange)
+
+        recipesViewModel.getRecipes()
     }
 
     private fun setupRecipesRecyclerView() = recipesEpoxyRecyclerView.apply {

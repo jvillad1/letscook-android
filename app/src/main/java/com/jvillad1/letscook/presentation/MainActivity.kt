@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         findNavController(R.id.recipesNavHostFragment)
     }
 
-    private val onDestinationChangedListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
+    private val onDestinationChangedListener = NavController.OnDestinationChangedListener { _, destination, _ ->
         when (destination.id) {
             R.id.recipeDetailsFragment -> {
                 toolbar.title = getText(R.string.recipe_details)

@@ -8,7 +8,9 @@ import com.jvillad1.letscook.R
 import com.jvillad1.letscook.commons.base.NavigationProvider
 import com.jvillad1.letscook.commons.base.Output
 import com.jvillad1.letscook.commons.base.UIState
-import com.jvillad1.letscook.domain.usecase.RecipesUseCases
+import com.jvillad1.letscook.domain.usecase.GetRecipeDetails
+import com.jvillad1.letscook.domain.usecase.GetRecipes
+import com.jvillad1.letscook.domain.usecase.SearchRecipes
 import com.jvillad1.letscook.presentation.model.RecipeDetailsUI
 import com.jvillad1.letscook.presentation.model.RecipeUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipeDetailsData
@@ -26,7 +28,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class RecipesViewModel @Inject constructor(
-    private val recipesUseCases: RecipesUseCases
+    private val getRecipes: GetRecipes,
+    private val getRecipeDetails: GetRecipeDetails,
+    private val searchRecipes: SearchRecipes
 ) : ViewModel(), NavigationProvider<RecipesView> {
 
     // Current view LiveData
@@ -46,15 +50,11 @@ class RecipesViewModel @Inject constructor(
         currentViewMutableLiveData.value = destinationView
     }
 
-    init {
-        getRecipes()
-    }
-
     fun getRecipes() = viewModelScope.launch {
         Timber.d("getRecipes")
         currentUIStateMutableLiveData.value = UIState.Loading()
 
-        val output = recipesUseCases.getRecipes()
+        val output = getRecipes.invoke()
         if (output is Output.Success) {
             recipes = output.data
             currentUIStateMutableLiveData.value = UIState.Data(RecipesData(recipes))
@@ -69,7 +69,7 @@ class RecipesViewModel @Inject constructor(
 
         fun getQueryString() = "%$query%"
 
-        val output = recipesUseCases.searchRecipes(getQueryString())
+        val output = searchRecipes.invoke(getQueryString())
         if (output is Output.Success) {
             filteredRecipes = output.data
             currentUIStateMutableLiveData.value = UIState.Data(RecipesData(filteredRecipes))
@@ -87,7 +87,7 @@ class RecipesViewModel @Inject constructor(
         Timber.d("getRecipeDetails")
         currentUIStateMutableLiveData.value = UIState.Loading()
 
-        val output = recipesUseCases.getRecipeDetails(id)
+        val output = getRecipeDetails.invoke(id)
         if (output is Output.Success) {
             currentUIStateMutableLiveData.value = UIState.Data(RecipeDetailsData(output.data))
         } else {

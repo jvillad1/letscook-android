@@ -4,18 +4,17 @@ import com.jvillad1.letscook.data.RecipesRepositoryImpl
 import com.jvillad1.letscook.domain.repository.RecipesRepository
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 /**
  * [Module] to provide data level dependencies.
  *
  * @author juan.villada
  */
-@Module(
-    includes = [
-        NetworkModule::class,
-        CacheModule::class
-    ]
-)
+
+@Module
+@InstallIn(SingletonComponent::class)
 abstract class DataModule {
 
     @Binds

@@ -14,6 +14,7 @@ import com.jvillad1.letscook.presentation.model.RecipeUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipeDetailsData
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipesData
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,6 +24,7 @@ import javax.inject.Inject
  *
  * @author juan.villada
  */
+@HiltViewModel
 class RecipesViewModel @Inject constructor(
     private val recipesUseCases: RecipesUseCases
 ) : ViewModel(), NavigationProvider<RecipesView> {
@@ -72,7 +74,8 @@ class RecipesViewModel @Inject constructor(
             filteredRecipes = output.data
             currentUIStateMutableLiveData.value = UIState.Data(RecipesData(filteredRecipes))
         } else {
-            currentUIStateMutableLiveData.value = UIState.Error(R.string.recipes_search_error_message)
+            currentUIStateMutableLiveData.value =
+                UIState.Error(R.string.recipes_search_error_message)
         }
     }
 
@@ -88,7 +91,8 @@ class RecipesViewModel @Inject constructor(
         if (output is Output.Success) {
             currentUIStateMutableLiveData.value = UIState.Data(RecipeDetailsData(output.data))
         } else {
-            currentUIStateMutableLiveData.value = UIState.Error(R.string.recipe_details_error_message)
+            currentUIStateMutableLiveData.value =
+                UIState.Error(R.string.recipe_details_error_message)
         }
     }
 

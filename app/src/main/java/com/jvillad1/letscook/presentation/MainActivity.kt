@@ -1,8 +1,8 @@
 package com.jvillad1.letscook.presentation
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,23 +14,20 @@ import com.jvillad1.letscook.presentation.model.RecipeUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView.RecipeDetailsFragment
-import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Activity for the Main Entry-Point.
  *
  * @author juan.villada
  */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     // ViewModel
-    @Inject
-    lateinit var recipesViewModelFactory: RecipesViewModelFactory
-    private lateinit var recipesViewModel: RecipesViewModel
+    private val recipesViewModel by viewModels<RecipesViewModel>()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -51,12 +48,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
-        // ViewModel
-        recipesViewModel = ViewModelProvider(this, recipesViewModelFactory)
-            .get(RecipesViewModel::class.java)
 
         observe(recipesViewModel.currentViewLiveData, ::onRecipesViewChange)
     }

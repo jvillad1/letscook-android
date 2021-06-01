@@ -1,13 +1,13 @@
 package com.jvillad1.letscook.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewStub
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jvillad1.letscook.R
 import com.jvillad1.letscook.commons.base.UIState
@@ -23,24 +23,21 @@ import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesDataType.RecipesData
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel.RecipesView.RecipeDetailsFragment
-import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.*
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Fragment for the Recipes view.
  *
  * @author juan.villada
  */
+@AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes),
     RecipesController.RecipeClickedListener, ErrorBannerView.ErrorBannerListener {
 
     // ViewModel
-    @Inject
-    lateinit var recipesViewModelFactory: RecipesViewModelFactory
-    private lateinit var recipesViewModel: RecipesViewModel
+    private val recipesViewModel by activityViewModels<RecipesViewModel>()
 
     // Epoxy controller
     private val recipesController: RecipesController by lazy {
@@ -57,19 +54,6 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes),
 
     // ErrorBanner
     private lateinit var errorBanner: ErrorBanner
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // ViewModel
-        recipesViewModel = ViewModelProvider(requireActivity(), recipesViewModelFactory)
-            .get(RecipesViewModel::class.java)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

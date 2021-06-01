@@ -1,12 +1,11 @@
 package com.jvillad1.letscook.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewStub
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jvillad1.letscook.R
@@ -19,23 +18,21 @@ import com.jvillad1.letscook.commons.widget.ErrorBannerView
 import com.jvillad1.letscook.presentation.adapter.RecipeDetailsController
 import com.jvillad1.letscook.presentation.model.RecipeDetailsUI
 import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModel
-import com.jvillad1.letscook.presentation.viewmodel.RecipesViewModelFactory
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipe_details.*
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Fragment for the Recipe Details view.
  *
  * @author juan.villada
  */
-class RecipeDetailsFragment : Fragment(R.layout.fragment_recipe_details), ErrorBannerView.ErrorBannerListener {
+@AndroidEntryPoint
+class RecipeDetailsFragment : Fragment(R.layout.fragment_recipe_details),
+    ErrorBannerView.ErrorBannerListener {
 
     // ViewModel
-    @Inject
-    lateinit var recipesViewModelFactory: RecipesViewModelFactory
-    private lateinit var recipesViewModel: RecipesViewModel
+    private val recipesViewModel by activityViewModels<RecipesViewModel>()
 
     // Navigation
     private val args: RecipeDetailsFragmentArgs by navArgs()
@@ -54,19 +51,6 @@ class RecipeDetailsFragment : Fragment(R.layout.fragment_recipe_details), ErrorB
 
     // ErrorBanner
     private lateinit var errorBanner: ErrorBanner
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // ViewModel
-        recipesViewModel = ViewModelProvider(requireActivity(), recipesViewModelFactory)
-            .get(RecipesViewModel::class.java)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,11 +72,12 @@ class RecipeDetailsFragment : Fragment(R.layout.fragment_recipe_details), ErrorB
         setController(recipeDetailsController)
     }
 
-    private fun onUIStateChange(uiState: UIState<RecipesViewModel.RecipesDataType>) = when (uiState) {
-        is UIState.Loading -> showLoading()
-        is UIState.Data -> showData(uiState.data)
-        is UIState.Error -> showError(uiState.message)
-    }
+    private fun onUIStateChange(uiState: UIState<RecipesViewModel.RecipesDataType>) =
+        when (uiState) {
+            is UIState.Loading -> showLoading()
+            is UIState.Data -> showData(uiState.data)
+            is UIState.Error -> showError(uiState.message)
+        }
 
     private fun showLoading() {
         Timber.d("showLoading")
@@ -108,7 +93,9 @@ class RecipeDetailsFragment : Fragment(R.layout.fragment_recipe_details), ErrorB
 
         loadingInflated?.gone()
         when (recipesDataType) {
-            is RecipesViewModel.RecipesDataType.RecipeDetailsData -> showRecipeDetailsList(recipesDataType.recipeDetails)
+            is RecipesViewModel.RecipesDataType.RecipeDetailsData -> showRecipeDetailsList(
+                recipesDataType.recipeDetails
+            )
         }
     }
 

@@ -3,6 +3,8 @@ package com.jvillad1.letscook.di
 import com.jvillad1.letscook.BuildConfig
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -12,10 +14,10 @@ import okhttp3.logging.HttpLoggingInterceptor
  * @author juan.villada
  */
 @Module
+@InstallIn(SingletonComponent::class)
 object CoreNetworkModule {
 
     @Provides
-    @JvmStatic
     internal fun providesLoggingInterceptor(): HttpLoggingInterceptor? =
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().apply {
@@ -24,7 +26,6 @@ object CoreNetworkModule {
         } else null
 
     @Provides
-    @JvmStatic
     internal fun providesOkHttpClientBuilder(
         loggingInterceptor: HttpLoggingInterceptor?
     ): OkHttpClient.Builder =

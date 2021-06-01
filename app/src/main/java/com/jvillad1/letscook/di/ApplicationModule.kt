@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
@@ -13,10 +15,10 @@ import javax.inject.Singleton
  * @author juan.villada
  */
 @Module
+@InstallIn(SingletonComponent::class)
 object ApplicationModule {
 
     @Provides
-    @JvmStatic
     @Singleton
     fun providesConnectivityManager(application: Application): ConnectivityManager =
         application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
